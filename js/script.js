@@ -210,16 +210,25 @@ document.addEventListener('DOMContentLoaded', () =>{
         }
     }
 
-    new MenuCard(
-        "img/tabs/vegy.jpg",
-        "vegy",
-        'Меню "Фитнес"',
-        'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
-        9,
-        '.menu .container',
-        'menu__item',
-        'big'
-    ).render();
+
+    const getResource = async(url) =>{
+        const res = await fetch (url);
+
+        if(!res.ok){
+            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+        }
+
+        return await res.json();
+    };
+
+    getResource('http://localhost:3000/menu')
+        .then(data => {
+                data.forEach(({img, altimg, title, descr, price}) =>{
+                    new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+                });
+        });
+
+
 
 
     //forms
@@ -246,8 +255,6 @@ document.addEventListener('DOMContentLoaded', () =>{
 
             });
             return await res.json();
-
-
     };
 
     function bindPostData (form){
@@ -269,13 +276,10 @@ document.addEventListener('DOMContentLoaded', () =>{
             
             const formData = new FormData(form);
 
-            const object = {};
-            formData.forEach(function(value, key){
-                object[key] = value;
-            });
+            const json = JSON.stringify(Object.fromEntries(formData.entries()));
             
-            postData('server.php', JSON.stringify(object) )
-            .then(data => data.text())
+            postData('http://localhost:3000/requests', json )
+            
             .then(data => {
                 console.log(data);
                 showThanksModal(message.success);
@@ -317,4 +321,53 @@ document.addEventListener('DOMContentLoaded', () =>{
             closeModal();
         }, 4000);
     }
+
+    const slides = document.querySelectorAll('.offer__slide'),
+          prev = document.querySelector('.offer__slider-prev'),
+          next = document.querySelector('.offer__slider-next'),
+          total = document.querySelector('#total'),
+          current = document.querySelector('#current');
+    
+    let slideIndex = 1;
+
+    if (slideIndex < 10){
+        total.textContent = `0${slides.length}`;
+    }else{
+        total.textContent = slides.length;
+    }
+
+    showSlides(slideIndex);
+
+    function showSlides(n) {
+        if (n > slides.length){
+            slideIndex = 1;
+        }
+
+        if (n < 1){
+            slideIndex = slides.length;
+        }
+
+        slides.forEach(item => item.style.display = 'none');
+
+        slides[slideIndex - 1].style.display = 'block';
+
+        if (slideIndex < 10){
+            current.textContent = `0${slideIndex}`;
+        }else{
+            current.textContent = slideIndex ;
+        }
+    }
+
+        function plusSlides(n){
+            showSlides(slideIndex += n);
+        }
+
+        prev.addEventListener('click', () =>{
+            plusSlides(-1);
+        });
+
+        next.addEventListener('click', () =>{
+            plusSlides(1);
+        });
+    
 });
