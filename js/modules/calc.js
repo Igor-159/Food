@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 function calc() {
      //Calc
         
@@ -27,7 +29,7 @@ function calc() {
              if(elem.getAttribute('id') === localStorage.getItem('sex')){
                  elem.classList.add(activeClass);
              }
-             if(elem.getAttribute('data-ratio') === localStorage.getAttribute('ratio')){
+             if(elem.getAttribute('data-ratio') === localStorage.getItem('ratio')){
                  elem.classList.add(activeClass);
              }
          });
@@ -117,4 +119,4 @@ function calc() {
      getDynamicInformation('#age');
 }
 
-module.exports = calc;
+export default calc;

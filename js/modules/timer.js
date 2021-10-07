@@ -1,7 +1,9 @@
-function timer() {
+/* jshint esversion: 6 */
+
+function timer(id, deadline) {
      //Timer
 
-     const deadLine = '2021-11-11';
+     
 
      function getTimeRemaining(endtime){
          const t = Date.parse(endtime) - Date.parse(new Date()),
@@ -59,7 +61,7 @@ function timer() {
  }
  
  
-     setClock('.timer', deadLine);
+     setClock(id, deadline);
 }
 
-module.exports = timer;
+export default timer;
