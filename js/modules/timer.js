@@ -1,4 +1,4 @@
-/* jshint esversion: 6 */
+
 
 function timer(id, deadline) {
      //Timer

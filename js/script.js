@@ -1,5 +1,8 @@
-/* jshint esversion: 6 */
+
 "use strict";
+    require('es6-promise').polyfill();
+    import 'nodelist-foreach-polyfill';
+
     import cards  from './modules/cards';
     import tabs  from './modules/tabs';
     import modal  from './modules/modal';

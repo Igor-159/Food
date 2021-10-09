@@ -1,4 +1,4 @@
-/* jshint esversion: 6 */
+
 
 import {openModal, closeModal} from './modal';
 import{postData} from '../services/services';
@@ -47,7 +47,7 @@ function forms(formSelector, modalTimerId) {
                 console.log(data);
                 showThanksModal(message.success);
                 
-                tatusMessage.remove();})
+                statusMessage.remove();})
                 .catch(() =>{
                     showThanksModal(message.failure);
                 })

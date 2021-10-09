@@ -1,4 +1,4 @@
-/* jshint esversion: 6 */
+
 import {getResource} from '../services/services';
 
 function cards() {

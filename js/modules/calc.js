@@ -1,4 +1,4 @@
-/* jshint esversion: 6 */
+
 
 function calc() {
      //Calc
@@ -36,7 +36,7 @@ function calc() {
      }
 
      initLocalSettings('#gender div', 'calculating__choose-item_active');
-     initLocalSettings('.calculating__choose_big', 'calculating__choose-item_active');
+     initLocalSettings('.calculating__choose_big div', 'calculating__choose-item_active');
 
      
      function calcTotal(){
@@ -84,7 +84,7 @@ function calc() {
      }
 
      getStaticInformation('#gender div', 'calculating__choose-item_active');
-     getStaticInformation('.calculating__choose_big', 'calculating__choose-item_active');
+     getStaticInformation('.calculating__choose_big div', 'calculating__choose-item_active');
 
      function getDynamicInformation (selector) {
          const input = document.querySelector(selector);
